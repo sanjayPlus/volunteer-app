@@ -148,13 +148,13 @@ function Register() {
   };
   return (
     <>
-      <div className="form-container w-full flex justify-center items-center bg-white dark:bg-zinc-600">
+      <div className="form-container w-full flex justify-center items-center bg-white">
         <div className="form shadow-lg mt-10">
     
           <div className="max-w-sm">
           <label
             htmlFor="name"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Name
           </label>
@@ -170,7 +170,7 @@ function Register() {
           {/* Email field */}
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Email
           </label>
@@ -186,7 +186,7 @@ function Register() {
           {/* Password field */}
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Password
           </label>
@@ -201,7 +201,7 @@ function Register() {
           {/* Phone field */}
           <label
             htmlFor="phone"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Phone
           </label>
@@ -219,7 +219,7 @@ function Register() {
         <div className="max-w-sm">
           <label
             htmlFor="district"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Select District
           </label>
@@ -239,7 +239,7 @@ function Register() {
         <div className="max-w-sm">
           <label
             htmlFor="constituency"
-            className="block mb-2  text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2  text-sm font-medium text-gray-900 dark:text-black"
           >
             Select Constituency
           </label>
@@ -259,7 +259,7 @@ function Register() {
         <div className="max-w-sm">
           <label
             htmlFor="assembly"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Select Assembly
           </label>
@@ -279,7 +279,7 @@ function Register() {
         <div className="max-w-sm">
           <label
             htmlFor="booth"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Select Booth
           </label>
@@ -299,7 +299,7 @@ function Register() {
         <div className="max-w-sm">
           <label
             htmlFor="task"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Select Task Force
           </label>
