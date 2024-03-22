@@ -9,7 +9,7 @@ function Token() {
     const {token}:any = useParams();
     const router = useRouter()
     useEffect(()=>{
-        axios.post(`${VOLUNTEER_URL}/volunteer/protected`, {
+        axios.get(`${VOLUNTEER_URL}/volunteer/protected`, {
                 headers: {
                     "x-access-token": token
                 }
