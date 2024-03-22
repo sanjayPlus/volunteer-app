@@ -25,13 +25,6 @@ function Register() {
   const [taskForce, setTaskForce] = useState<any>("");
   const router = useRouter();
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-    }
-
-  }, []);
-  useEffect(() => {
     axios.get(VOLUNTEER_URL + "/admin/state-districtV1").then((res) => {
       setDistrictList(res.data);
     });
@@ -46,7 +39,7 @@ function Register() {
         `${VOLUNTEER_URL}/admin/state-districtV1?district=${selectedDistrict}`,
         {
           // Use the updated district value
-          headers: { "x-access-token": localStorage.getItem("token") },
+          headers: { "x-access-token": localStorage.getItem("volunteer-token") },
         }
       )
       .then((userResponse) => {
@@ -72,7 +65,7 @@ function Register() {
         `${VOLUNTEER_URL}/admin/state-districtV1?district=${district}&constituency=${selectedConstituency}`,
         {
           // Use the updated district value
-          headers: { "x-access-token": localStorage.getItem("token") },
+          headers: { "x-access-token": localStorage.getItem("volunteer-token") },
         }
       )
       .then((userResponse) => {
@@ -100,7 +93,7 @@ function Register() {
         `${VOLUNTEER_URL}/admin/state-districtV1?district=${district}&constituency=${constituency}&assembly=${selectedAssembly}`,
         {
           // Use the updated district value
-          headers: { "x-access-token": localStorage.getItem("token") },
+          headers: { "x-access-token": localStorage.getItem("volunteer-token") },
         }
       )
       .then((userResponse) => {
@@ -118,7 +111,7 @@ function Register() {
     boothList.forEach((booth:any) => {
       BoothRuleList.push(booth?.number);
     })
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("volunteer-token");
     axios
       .post(
         `${VOLUNTEER_URL}/volunteer/register`,
