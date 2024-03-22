@@ -34,7 +34,7 @@ function IdCreation() {
           axios
             .get(`${VOLUNTEER_URL}/volunteer/volunteer-details`, {
               headers: {
-                "x-access-token": localStorage.getItem("token"),
+                "x-access-token": localStorage.getItem("volunteer-token"),
               },
             })
             .then((userResponse) => {
