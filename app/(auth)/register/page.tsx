@@ -4,7 +4,8 @@ import "./register.css"
 import { useRouter } from "next/navigation";
 import VOLUNTEER_URL from "@/config/VOLUNTEER_URL";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
+
 
 function Register() {
   const [name, setName] = useState("");
@@ -352,7 +353,7 @@ function Register() {
      
         </div>
       </div>
-      <ToastContainer />
+      <Toaster />
     </>
   );
 }

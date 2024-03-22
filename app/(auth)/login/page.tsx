@@ -4,8 +4,9 @@ import "./login.css";
 import axios from "axios";
 import VOLUNTEER_URL from "@/config/VOLUNTEER_URL";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
-import { toast, ToastContainer } from "react-toastify";
+
 function Login() {
     const router = useRouter();
     const [email, setEmail] = useState("");
@@ -146,7 +147,7 @@ function Login() {
   </div> */}
         </div>
       </div>
-      <ToastContainer />
+      <Toaster />
     </>
   );
 }
