@@ -39,11 +39,11 @@ function IdCreation() {
             })
             .then((userResponse) => {
               if (userResponse.status === 200) {
-                setDistrict(userResponse.data.district);
-                setConstituency(userResponse.data.assembly);
+                setDistrict(userResponse.data.volunteer.district);
+                setConstituency(userResponse.data.volunteer.assembly);
                 axios
                   .get(
-                    `${VOLUNTEER_URL}/admin/state-districtV1?district=${userResponse.data.district}`,
+                    `${VOLUNTEER_URL}/admin/state-districtV1?district=${userResponse.data.volunteer.district}`,
                     {
                       // Use the updated district value
                       headers: {
