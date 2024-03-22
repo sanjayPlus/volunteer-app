@@ -4,7 +4,8 @@ import "./login.css";
 import axios from "axios";
 import VOLUNTEER_URL from "@/config/VOLUNTEER_URL";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+
+import { toast, ToastContainer } from "react-toastify";
 function Login() {
     const router = useRouter();
     const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ function Login() {
             </svg>
             <input
               type="text"
-              className="input"
+              className="input dark:text-black"
               placeholder="Enter your Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -77,7 +78,7 @@ function Login() {
             </svg>
             <input
               type={showPassword ? "text" : "password"}
-              className="input"
+              className="input dark:text-black"
               placeholder="Enter your Password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -145,6 +146,7 @@ function Login() {
   </div> */}
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 
 function Token() {
     const {token}:any = useParams();
+    console.log(token)
     const router = useRouter()
     useEffect(()=>{
         axios.get(`${VOLUNTEER_URL}/volunteer/protected`, {

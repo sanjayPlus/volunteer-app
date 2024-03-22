@@ -4,7 +4,8 @@ import "./register.css"
 import { useRouter } from "next/navigation";
 import VOLUNTEER_URL from "@/config/VOLUNTEER_URL";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -137,15 +138,17 @@ function Register() {
         console.log(res);
         if (res.status === 200) {
           router.push("/login");
+          toast.success("Registration Successful");
         }
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Registration Failed Account May Already Exist");
       });
   };
   return (
     <>
-      <div className="form-container w-full flex justify-center items-center bg-white">
+      <div className="form-container w-full flex justify-center items-center bg-white dark:bg-zinc-600">
         <div className="form shadow-lg mt-10">
     
           <div className="max-w-sm">
@@ -349,6 +352,7 @@ function Register() {
      
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
