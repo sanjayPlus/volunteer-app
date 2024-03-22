@@ -295,7 +295,7 @@ function Register() {
             <option>Select an option</option>
             {boothList.map((booth: any) => (
               <option key={booth} value={booth.number}>
-                {booth.number} {booth.name}
+                {booth.number} 
               </option>
             ))}
           </select>
