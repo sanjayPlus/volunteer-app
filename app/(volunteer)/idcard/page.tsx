@@ -32,7 +32,7 @@ function IdCreation() {
       .then(async (response) => {
         if (response.status === 200) {
           axios
-            .get(`${SERVER_URL}/user/details`, {
+            .get(`${VOLUNTEER_URL}/volunteer/volunteer-details`, {
               headers: {
                 "x-access-token": localStorage.getItem("token"),
               },

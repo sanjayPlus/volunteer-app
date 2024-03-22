@@ -351,7 +351,7 @@ function Register() {
           
           <button className="button-submit" onClick={handleSubmit}>Sign Up</button>
           <p className="p">
-            Already have an account?<span className="span">Sign In</span>
+            Already have an account?<span className="span" onClick={() => router.push("/login")}>Sign In</span>
           </p>
      
         </div>
