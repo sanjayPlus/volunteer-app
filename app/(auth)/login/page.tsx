@@ -93,7 +93,7 @@ function Login() {
           </div>
           <button className="button-submit" onClick={handleSubmit}>Sign In</button>
           <p className="p">
-            Don't have an account? <span className="span">Sign Up</span>
+            Don't have an account? <span className="span" onClick={()=>router.push("/register")}>Sign Up</span>
           </p>
           {/* <p className="p line">Or With</p>
   <div className="flex-row">
