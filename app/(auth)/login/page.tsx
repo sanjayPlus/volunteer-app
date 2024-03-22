@@ -26,6 +26,9 @@ function Login() {
     },[])
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        if(!email || !password){
+            return toast.error("Please fill all the fields")
+        }
         axios.post(`${VOLUNTEER_URL}/volunteer/login`, {
             email,
             password,

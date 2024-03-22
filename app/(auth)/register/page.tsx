@@ -109,6 +109,9 @@ function Register() {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if(!name || !email || !password || !phone || !district || !assembly || !booth || !constituency || !taskForce){
+      return toast.error("Please fill all the fields");
+    }
     let BoothRuleList:any = [];
     boothList.forEach((booth:any) => {
       BoothRuleList.push(booth?.number);
