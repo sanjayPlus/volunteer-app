@@ -66,8 +66,10 @@ function IdCreation() {
     if (district == "") {
       toast.error("Select The District");
     }
+
     const selectedLoka = e.target.value; // Get the selected district from the event
-      axios.get(`${SERVER_URL}/admin/lokaV1?district=${district}&loka=${selectedLoka}`, {
+    setLoka(selectedLoka); // Update the district state with the selected district
+      axios.get(`${SERVER_URL}/admin/districtV4?district=${district}&constituency=${selectedLoka}`, {
         headers: {
           "x-access-token": localStorage.getItem("volunteer-token"),
         },
@@ -190,7 +192,7 @@ function IdCreation() {
             </label>
             <select
               id="loka"
-              onChange={(e) => setLoka(e.target.value)}
+              onChange={(e) => handleLokaChange(e)}
               className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-900 focus:border-blue-900 block w-full p-3 dark:bg-white dark:border-gray-600 dark:placeholder-black dark:text-black dark:focus:ring-blue-800 dark:focus:border-blue-900"
             >
               <option>Select an option</option>
