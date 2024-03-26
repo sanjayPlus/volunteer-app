@@ -22,6 +22,8 @@ function Login() {
             if (response.status === 200) {
                 router.push("/dmc");
             }
+        }).catch((err) => {
+            console.log(err.response.data);
         })
     },[])
     const handleSubmit = (e: any) => {

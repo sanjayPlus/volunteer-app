@@ -8,6 +8,8 @@ import SERVER_URL from "@/config/SERVER_URL";
 import VOLUNTEER_URL from "@/config/VOLUNTEER_URL";
 import Loading from "@/components/Loading";
 import toast from "react-hot-toast";
+import { CiShare1 } from "react-icons/ci";
+import { IoIosLogOut } from "react-icons/io";
 
 function Dmc() {
   const router = useRouter();
@@ -50,12 +52,14 @@ useEffect(() => {
   return (
     <MobileContainer>
       <div className="w-full h-full bg-[#F1F4FF] flex flex-col items-center relative">
-        <div className=" w-full  bg-white/100 mb-7 box-shodow-lg box-shagow-black flex flex-col border-[#C0C2CB)] shadow-lg shadow-[#C0C2CB)]">
-     
+        <div className=" w-full  bg-white/100 mb-7 box-shodow-lg box-shagow-black flex border-[#C0C2CB)] shadow-lg shadow-[#C0C2CB)] items-center justify-between px-5">
+        <CiShare1 size={25} onClick={()=>{navigator.clipboard.writeText("https://volunteer-app.dmckpcc.in/token/"+localStorage.getItem("volunteer-token")); toast.success("App Link Copied!")}} className=" text-lg cursor-pointer"/>
+
           <h1 className=" text-xl text-center font-bold mt-5 drop-shadow-lg text-black mb-4">
             {" "}
             DMC
           </h1>
+          <IoIosLogOut size={25} onClick={() =>{localStorage.removeItem("volunteer-token"); router.push("/");}} className=" text-lg cursor-pointer" />
         </div>
         <div className="w-[92%] h-[90%] bg-white p-2  flex flex-col gap-4 pb-18">
           <div
