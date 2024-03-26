@@ -70,6 +70,18 @@ useEffect(() => {
               <img src="/dmc/Arrow_drop_right.png" alt="" />
             </div>
           </div>
+          <div
+            className="flex gap-2 cursor-pointer"
+            onClick={() => router.push("/idcard2")}
+          >
+            <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
+              <h1>IDCreator With Photo:</h1>
+              <img src="/dmc/Groupdcc.png" alt="" />
+            </div>
+            <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
+              <img src="/dmc/Arrow_drop_right.png" alt="" />
+            </div>
+          </div>
           {/* 2 */}
           <div className="flex gap-2 cursor-pointer" onClick={()=>appLink[1]?.link?window.open(appLink[1].link, "_blank"):toast.error("Coming Soon")}>
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
