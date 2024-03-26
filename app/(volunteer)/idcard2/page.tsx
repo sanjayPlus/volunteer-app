@@ -205,7 +205,7 @@ function IdCreation() {
               htmlFor="loka"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
             >
-              Select loka
+              Select Lok Sobha
             </label>
             <select
               id="loka"

@@ -67,7 +67,7 @@ useEffect(() => {
             onClick={() => router.push("/idcard")}
           >
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
-              <h1>IDCreator:</h1>
+              <h1  className="dark:text-black">ID Creator:</h1>
               <img src="/dmc/Groupdcc.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
@@ -79,7 +79,7 @@ useEffect(() => {
             onClick={() => router.push("/idcard2")}
           >
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
-              <h1>IDCreator With Photo:</h1>
+              <h1 className="dark:text-black">ID Creator With Photo:</h1>
               <img src="/dmc/Groupdcc.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
@@ -89,7 +89,7 @@ useEffect(() => {
           {/* 2 */}
           <div className="flex gap-2 cursor-pointer" onClick={()=>appLink[1]?.link?window.open(appLink[1].link, "_blank"):toast.error("Coming Soon")}>
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
-              <h1>Controlls:</h1>
+              <h1  className="dark:text-black">Controlls:</h1>
               <img src="/dmc/controlls.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
@@ -99,7 +99,7 @@ useEffect(() => {
           {/* 3 */}
           <div className="flex gap-2 cursor-pointer" onClick={()=>appLink[0]?.link?window.open(appLink[0].link, "_blank"):toast.error("Coming Soon")}>
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
-              <h1>Ente Boothil Congress (EBC):</h1>
+              <h1  className="dark:text-black">Ente Boothil Congress (EBC):</h1>
               <img src="/dmc/hand.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
@@ -112,7 +112,7 @@ useEffect(() => {
             onClick={() => router.push("/whatsapp")}
           >
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
-              <h1>WhatsApp Group:</h1>
+              <h1  className="dark:text-black">WhatsApp Group:</h1>
               <img src="/dmc/whatsapp.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
@@ -125,7 +125,7 @@ useEffect(() => {
             onClick={() => router.push("/assignments")}
           >
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
-              <h1>Assignments:</h1>
+              <h1  className="dark:text-black">Assignments:</h1>
               <img src="/dmc/assignment.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
@@ -138,7 +138,7 @@ useEffect(() => {
             onClick={() => router.push("/reports")}
           >
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between   p-3">
-              <h1>Reports:</h1>
+              <h1  className="dark:text-black">Reports:</h1>
               <img src="/dmc/reports.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
