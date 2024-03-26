@@ -42,32 +42,13 @@ function IdCreation() {
             .then((userResponse) => {
               if (userResponse.status === 200) {
                 setDistrict(userResponse.data.volunteer.district);
-                setConstituency(userResponse.data.volunteer.assembly);
-                axios
-                  .get(
-                    `${VOLUNTEER_URL}/admin/state-districtV1?district=${userResponse.data.volunteer.district}`,
-                    {
-                      // Use the updated district value
-                      headers: {
-                        "x-access-token": localStorage.getItem("volunteer-token"),
-                      },
-                    }
-                  )
-                  .then((response) => {
-                    if (response.status === 200) {
-                      axios.get(`${SERVER_URL}/admin/districtV4?district=${userResponse.data.volunteer.district}`, {
-                        headers: {
-                          "x-access-token": localStorage.getItem("volunteer-token"),
-                        },
-                      }).then((response) => {
-                        setLokaList(response.data);
-                      })
-                      setConstituencyList(response.data);
-                    }
-                  })
-                  .catch((err) => {
-                    console.log(err.response.data);
-                  });
+                axios.get(`${SERVER_URL}/admin/districtV4?district=${userResponse.data.volunteer.district}`, {
+                  headers: {
+                    "x-access-token": localStorage.getItem("volunteer-token"),
+                  },
+                }).then((response) => {
+                  setLokaList(response.data);
+                })
               }
             });
         } else {
@@ -81,21 +62,21 @@ function IdCreation() {
         router.push("/dmc");
       });
   }, []);
-  // const handleLokaChange = (e: any) => {
-  //   if (district == "") {
-  //     toast.error("Select The District");
-  //   }
-  //   const selectedLoka = e.target.value; // Get the selected district from the event
-  //     axios.get(`${SERVER_URL}/admin/lokaV1?district=${district}&loka=${selectedLoka}`, {
-  //       headers: {
-  //         "x-access-token": localStorage.getItem("volunteer-token"),
-  //       },
-  //     }).then((response) => {
-  //       if (response.status === 200) {
-  //         setBoothList(response.data);
-  //       }
-  //     })
-  // }
+  const handleLokaChange = (e: any) => {
+    if (district == "") {
+      toast.error("Select The District");
+    }
+    const selectedLoka = e.target.value; // Get the selected district from the event
+      axios.get(`${SERVER_URL}/admin/lokaV1?district=${district}&loka=${selectedLoka}`, {
+        headers: {
+          "x-access-token": localStorage.getItem("volunteer-token"),
+        },
+      }).then((response) => {
+        if (response.status === 200) {
+          setConstituencyList(response.data);
+        }
+      })
+  }
   const handleConstitunecyChange = (e: any) => {
     if (district == "") {
       toast.error("Select The District");
