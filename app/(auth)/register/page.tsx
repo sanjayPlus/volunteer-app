@@ -245,7 +245,7 @@ function Register() {
             htmlFor="constituency"
             className="block mb-2  text-sm font-medium text-gray-900 dark:text-black"
           >
-            Select Constituency
+            Select Assembly
           </label>
           <select
             id="constituency"
@@ -265,7 +265,7 @@ function Register() {
             htmlFor="assembly"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
-            Select Assembly
+            Select Mandalam
           </label>
           <select
             id="assembly"
