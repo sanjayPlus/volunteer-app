@@ -147,7 +147,7 @@ function WhatsappPublic() {
           }
         )
         .then((response) => {
-          toast.success("Report added successfully");
+          toast.success("Link added successfully");
         }).catch((err) => {
           console.log(err);
         })
