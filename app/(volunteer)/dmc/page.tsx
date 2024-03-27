@@ -125,8 +125,8 @@ useEffect(() => {
             onClick={() => router.push("/whatsapp-public")}
           >
             <div className="w-[80%] rounded-s-2xl  bg-[#EAEDF8] flex items-center pr-16 justify-between p-3">
-              <h1  className="dark:text-black">Add WhatsApp Group:</h1>
-              <img src="/dmc/whatsapp.png" alt="" />
+              <h1  className="dark:text-black">Add WhatsApp <br></br>Group Public:</h1>
+              <img src="/dmc/whatsapp1.png" alt="" />
             </div>
             <div className="w-[15%] rounded-e-2xl  bg-[#EAEDF8] flex items-center justify-center ">
               <img src="/dmc/Arrow_drop_right.png" alt="" />
