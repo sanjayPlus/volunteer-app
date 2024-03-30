@@ -130,6 +130,11 @@ function WhatsappPublic() {
         });
     };
     const handleSubmit = () => {
+      if (!assembly || !constituency || !booth || !membersNo || !link) {
+        alert('Please fill in all fields');
+        return;
+      }
+    
       axios
         .post(
           `${VOLUNTEER_URL}/volunteer/add-whatsapp-public`,
