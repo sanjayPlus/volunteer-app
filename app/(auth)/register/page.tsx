@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./register.css"
+import "./register.css";
 import { useRouter } from "next/navigation";
 import VOLUNTEER_URL from "@/config/VOLUNTEER_URL";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-
+import DCC_URL from "@/config/DCC_URL";
 
 function Register() {
   const [name, setName] = useState("");
@@ -25,35 +25,52 @@ function Register() {
   const [boothList, setBoothList] = useState([]);
   const [boothRule, setBoothRule] = useState<any[]>([]);
   const [taskForce, setTaskForce] = useState<any>("");
+  const [loka, setLoka] = useState("");
+  const [lokaList, setLokaList] = useState([]);
   const router = useRouter();
   useEffect(() => {
-    axios.get(VOLUNTEER_URL + "/admin/state-districtV1").then((res) => {
+    axios.get(DCC_URL + "/admin/districtV4").then((res) => {
       setDistrictList(res.data);
     });
   }, []);
   const handleDistrictChange = (e: any) => {
     const selectedDistrict = e.target.value; // Get the selected district from the event
-
     setDistrict(selectedDistrict); // Update the district state with the selected district
-
     axios
-      .get(
-        `${VOLUNTEER_URL}/admin/state-districtV1?district=${selectedDistrict}`,
-        {
-          // Use the updated district value
-          headers: { "x-access-token": localStorage.getItem("volunteer-token") },
-        }
-      )
-      .then((userResponse) => {
-        if (userResponse.status === 200) {
-          setConstituencyList(userResponse.data);
-        }
+      .get(`${DCC_URL}/admin/districtV4?district=${selectedDistrict}`, {
+        headers: {
+          "x-access-token": localStorage.getItem("volunteer-token"),
+        },
       })
-      .catch((err) => {
-        console.log(err.response.data);
+      .then((response) => {
+        if (response.status === 200) {
+          setLokaList(response.data);
+        }
       });
   };
 
+  const handleLokaChange = (e: any) => {
+    if (district == "") {
+      toast.error("Select The District");
+    }
+
+    const selectedLoka = e.target.value; // Get the selected district from the event
+    setLoka(selectedLoka); // Update the district state with the selected district
+    axios
+      .get(
+        `${DCC_URL}/admin/districtV4?district=${district}&constituency=${selectedLoka}`,
+        {
+          headers: {
+            "x-access-token": localStorage.getItem("volunteer-token"),
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setConstituencyList(response.data);
+        }
+      });
+  };
   const handleConstituencyChange = (e: any) => {
     if (district == "") {
       toast.error("Select The District");
@@ -67,7 +84,9 @@ function Register() {
         `${VOLUNTEER_URL}/admin/state-districtV1?district=${district}&constituency=${selectedConstituency}`,
         {
           // Use the updated district value
-          headers: { "x-access-token": localStorage.getItem("volunteer-token") },
+          headers: {
+            "x-access-token": localStorage.getItem("volunteer-token"),
+          },
         }
       )
       .then((userResponse) => {
@@ -95,7 +114,9 @@ function Register() {
         `${VOLUNTEER_URL}/admin/state-districtV1?district=${district}&constituency=${constituency}&assembly=${selectedAssembly}`,
         {
           // Use the updated district value
-          headers: { "x-access-token": localStorage.getItem("volunteer-token") },
+          headers: {
+            "x-access-token": localStorage.getItem("volunteer-token"),
+          },
         }
       )
       .then((userResponse) => {
@@ -109,13 +130,23 @@ function Register() {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if(!name || !email || !password || !phone || !district || !assembly || !booth || !constituency || !taskForce){
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !phone ||
+      !district ||
+      !assembly ||
+      !booth ||
+      !constituency ||
+      !taskForce
+    ) {
       return toast.error("Please fill all the fields");
     }
-    let BoothRuleList:any = [];
-    boothList.forEach((booth:any) => {
+    let BoothRuleList: any = [];
+    boothList.forEach((booth: any) => {
       BoothRuleList.push(booth?.number);
-    })
+    });
     const token = localStorage.getItem("volunteer-token");
     axios
       .post(
@@ -131,6 +162,7 @@ function Register() {
           boothRule: BoothRuleList,
           constituency,
           power: taskForce,
+          lokasabha: loka,
         },
         {
           headers: {
@@ -154,172 +186,189 @@ function Register() {
     <>
       <div className="form-container w-full flex justify-center items-center bg-white">
         <div className="form shadow-lg mt-10">
-    
           <div className="max-w-sm">
-          <label
-            htmlFor="name"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Name
-          </label>
-          <input
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            id="name"
-            value={name}
-            className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Enter your name"
-          />
+            <label
+              htmlFor="name"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Name
+            </label>
+            <input
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              id="name"
+              value={name}
+              className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter your name"
+            />
 
-          {/* Email field */}
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Email
-          </label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            id="email"
-            value={email}
-            className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Enter your email"
-          />
+            {/* Email field */}
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Email
+            </label>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="email"
+              value={email}
+              className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter your email"
+            />
 
-          {/* Password field */}
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Password
-          </label>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            id="password"
-            value={password}
-            className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Enter your password"
-          />
-          {/* Phone field */}
-          <label
-            htmlFor="phone"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Phone
-          </label>
-          <input
-            onChange={(e) => setPhone(e.target.value)}
-            type="tel"
-            id="phone"
-            value={phone}
-            className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Enter your phone number"
-          />
-
-       
-        </div>
-        <div className="max-w-sm">
-          <label
-            htmlFor="district"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Select District
-          </label>
-          <select
-            id="district"
-            className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            onChange={(e) => handleDistrictChange(e)}
-          >
-            <option>Select an option</option>
-            {districtList.map((district: any) => (
-              <option key={district} value={district}>
-                {district}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="max-w-sm">
-          <label
-            htmlFor="constituency"
-            className="block mb-2  text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Select Assembly
-          </label>
-          <select
-            id="constituency"
-            onChange={(e) => handleConstituencyChange(e)}
-            className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option>Select an option</option>
-            {constituencyList.map((constituency: any) => (
-              <option key={constituency} value={constituency}>
-                {constituency}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="max-w-sm">
-          <label
-            htmlFor="assembly"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Select Mandalam
-          </label>
-          <select
-            id="assembly"
-            onChange={(e) => handleAssemblyChange(e)}
-            className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option>Select an option</option>
-            {assemblyList.map((assembly: any) => (
-              <option key={assembly} value={assembly}>
-                {assembly}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="max-w-sm">
-          <label
-            htmlFor="booth"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Select Booth
-          </label>
-          <select
-            id="booth"
-            onChange={(e) => setBooth(e.target.value)}
-            className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option>Select an option</option>
-            {boothList.map((booth: any) => (
-              <option key={booth} value={booth.number}>
-                {booth.number} 
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="max-w-sm">
-          <label
-            htmlFor="task"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-          >
-            Select Task Force
-          </label>
-          <select
-            id="task"
-            onChange={(e) => setTaskForce(e.target.value)}
-            className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option>Select an option</option>
+            {/* Password field */}
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Password
+            </label>
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="password"
+              value={password}
+              className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter your password"
+            />
+            {/* Phone field */}
+            <label
+              htmlFor="phone"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Phone
+            </label>
+            <input
+              onChange={(e) => setPhone(e.target.value)}
+              type="tel"
+              id="phone"
+              value={phone}
+              className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter your phone number"
+            />
+          </div>
+          <div className="max-w-sm">
+            <label
+              htmlFor="district"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Select District
+            </label>
+            <select
+              id="district"
+              className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => handleDistrictChange(e)}
+            >
+              <option>Select an option</option>
+              {districtList.map((district: any) => (
+                <option key={district} value={district}>
+                  {district}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="max-w-sm">
+            <label
+              htmlFor="loka"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Select Loksabha
+            </label>
+            <select
+              id="loka"
+              onChange={(e) => handleLokaChange(e)}
+              className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option>Select an option</option>
+              {lokaList.map((assembly: any) => (
+                <option key={assembly} value={assembly}>
+                  {assembly}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="max-w-sm">
+            <label
+              htmlFor="constituency"
+              className="block mb-2  text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Select Assembly
+            </label>
+            <select
+              id="constituency"
+              onChange={(e) => handleConstituencyChange(e)}
+              className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option>Select an option</option>
+              {constituencyList.map((constituency: any) => (
+                <option key={constituency} value={constituency}>
+                  {constituency}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="max-w-sm">
+            <label
+              htmlFor="assembly"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Select Mandalam
+            </label>
+            <select
+              id="assembly"
+              onChange={(e) => handleAssemblyChange(e)}
+              className="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option>Select an option</option>
+              {assemblyList.map((assembly: any) => (
+                <option key={assembly} value={assembly}>
+                  {assembly}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="max-w-sm">
+            <label
+              htmlFor="booth"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Select Booth
+            </label>
+            <select
+              id="booth"
+              onChange={(e) => setBooth(e.target.value)}
+              className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option>Select an option</option>
+              {boothList.map((booth: any) => (
+                <option key={booth} value={booth.number}>
+                  {booth.number}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="max-w-sm">
+            <label
+              htmlFor="task"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Select Task Force
+            </label>
+            <select
+              id="task"
+              onChange={(e) => setTaskForce(e.target.value)}
+              className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option>Select an option</option>
               <option value="DTF">DTF</option>
               <option value="ATF">ATF</option>
               <option value="MTF">MTF</option>
               <option value="BTF">BTF</option>
-          </select>
-        </div>
-        {/* <div className="max-w-sm">
+            </select>
+          </div>
+          {/* <div className="max-w-sm">
           <label
             htmlFor="booth"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -348,12 +397,16 @@ function Register() {
             </div>
           ))}
         </div> */}
-          
-          <button className="button-submit" onClick={handleSubmit}>Sign Up</button>
+
+          <button className="button-submit" onClick={handleSubmit}>
+            Sign Up
+          </button>
           <p className="p">
-            Already have an account?<span className="span" onClick={() => router.push("/login")}>Sign In</span>
+            Already have an account?
+            <span className="span" onClick={() => router.push("/login")}>
+              Sign In
+            </span>
           </p>
-     
         </div>
       </div>
       <Toaster />
