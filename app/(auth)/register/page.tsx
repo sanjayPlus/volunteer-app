@@ -159,10 +159,10 @@ function Register() {
           district,
           assembly,
           booth,
-          boothRule: BoothRuleList,
+          boothRule:booth,
           constituency,
           power: taskForce,
-          lokasabha: loka,
+          loksabha: loka,
         },
         {
           headers: {
