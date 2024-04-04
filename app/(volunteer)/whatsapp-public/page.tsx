@@ -130,7 +130,7 @@ function WhatsappPublic() {
         });
     };
     const handleSubmit = () => {
-      if (!assembly || !constituency || !booth || !membersNo || !link) {
+      if (!assembly || !constituency || !booth || !link) {
         alert('Please fill in all fields');
         return;
       }
@@ -189,7 +189,7 @@ function WhatsappPublic() {
               placeholder='Enter Link'
             />
           </div>
-          <div className="max-w-sm mx-auto">
+          {/* <div className="max-w-sm mx-auto">
             <label
               htmlFor="membersNo"
               
@@ -205,7 +205,7 @@ function WhatsappPublic() {
               onChange={(e) =>setMembersNo(e.target.value)}
               placeholder='Enter Members No'
             />
-          </div>
+          </div> */}
           <div className="max-w-sm mx-auto">
             <label
               htmlFor="constitunecy"
