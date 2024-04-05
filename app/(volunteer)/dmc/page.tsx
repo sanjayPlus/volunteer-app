@@ -27,7 +27,18 @@ useEffect(() => {
   }).then(async (response) => {
     if(response.status == 200){
       setLoading(false)
-
+      axios.get(`${VOLUNTEER_URL}/volunteer/volunteer-details`,{
+        headers: {
+          "x-access-token": localStorage.getItem("volunteer-token"),
+        }
+      }).then((resp) => {
+        if(response.status == 200){
+            if(!resp.data.volunteer.verified){
+              toast.error("Please Wait For Admin To Verify Your Account");
+              router.push("/login");
+            }
+        }
+      })
     }else{
       router.push("/login");
       
